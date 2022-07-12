@@ -1,13 +1,6 @@
 import { Lap } from './Lap';
 import { SessionResult } from './SessionResult';
-import {
-  Entity,
-  Column,
-  PrimaryColumn,
-  JoinColumn,
-  OneToOne,
-  OneToMany,
-} from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToOne, OneToMany } from 'typeorm';
 
 @Entity()
 export class Session {

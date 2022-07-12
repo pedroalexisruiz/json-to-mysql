@@ -1,5 +1,12 @@
 import { LeaderBoardLine } from './LeaderBoardLine';
-import { Entity, Column, PrimaryColumn, JoinColumn, OneToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  JoinColumn,
+  OneToOne,
+  OneToMany,
+} from 'typeorm';
 import { Session } from './Session';
 
 @Entity()
@@ -21,5 +28,13 @@ export class SessionResult {
   isWetSession: number;
   @Column()
   type: number;
+  @OneToMany(
+    () => LeaderBoardLine,
+    (leaderBoardLine) => leaderBoardLine.sessionResult,
+    {
+      cascade: true,
+    },
+  )
+  @JoinColumn({ name: 'session_index' })
   leaderBoardLines: LeaderBoardLine[];
 }

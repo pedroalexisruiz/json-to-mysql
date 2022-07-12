@@ -2,12 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { SessionResultDto } from '../dtos/SessionResult';
 import { Session } from '../model/Session';
 import { SessionResult } from '../model/SessionResult';
+import { LeaderBoardLineFactory } from './leaderBoardLine.factory';
 
 @Injectable()
 export class SessionResultFactory {
-  constructor() {}
+  constructor(private leaderBoardLineFactory: LeaderBoardLineFactory) {}
 
   toModel(sessionResultDto: SessionResultDto): SessionResult {
+    const leaderBoardLines = sessionResultDto.leaderBoardLines.map(
+      (leaderBoardLine) =>
+        this.leaderBoardLineFactory.toModel(
+          leaderBoardLine,
+          sessionResultDto.sessionIndex,
+        ),
+    );
     return {
       ...sessionResultDto,
       bestSector1: sessionResultDto.bestSplits
@@ -22,6 +30,7 @@ export class SessionResultFactory {
       session: {
         sessionIndex: sessionResultDto.sessionIndex,
       } as Session,
+      leaderBoardLines,
     };
   }
 }

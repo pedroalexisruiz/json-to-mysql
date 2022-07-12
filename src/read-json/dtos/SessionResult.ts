@@ -1,4 +1,4 @@
-import { LeaderBoardLine } from './LeaderBoardLine';
+import { LeaderBoardLineDto } from './LeaderBoardLine';
 
 export interface SessionResultDto {
   sessionIndex: number;
@@ -6,5 +6,5 @@ export interface SessionResultDto {
   bestSplits: number[];
   isWetSession: number;
   type: number;
-  leaderBoardLines: LeaderBoardLine[];
+  leaderBoardLines: LeaderBoardLineDto[];
 }

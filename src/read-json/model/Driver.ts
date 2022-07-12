@@ -1,7 +1,13 @@
+import { Entity, Column, PrimaryColumn, OneToOne, OneToMany } from 'typeorm';
 
-export interface Driver {
-  firstName: string;
-  lastName: string;
-  shortName: string;
+@Entity()
+export class Driver {
+  @PrimaryColumn({ name: 'player_id' })
   playerId: string;
+  @Column({ name: 'first_name' })
+  firstName: string;
+  @Column({ name: 'last_name' })
+  lastName: string;
+  @Column({ name: 'short_name' })
+  shortName: string;
 }

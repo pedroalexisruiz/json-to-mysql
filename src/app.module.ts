@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Car } from './read-json/model/Car';
+import { Driver } from './read-json/model/Driver';
 import { Lap } from './read-json/model/Lap';
+import { LeaderBoardLine } from './read-json/model/LeaderBoardLine';
 import { Session } from './read-json/model/Session';
 import { SessionResult } from './read-json/model/SessionResult';
 import { ReadJsonModule } from './read-json/ReadJson.module';
@@ -14,8 +17,8 @@ import { ReadJsonModule } from './read-json/ReadJson.module';
       username: 'root',
       password: '',
       database: 'asseto_corsa',
-      entities: [Session, SessionResult, Lap],
-      synchronize: true,
+      entities: [Session, SessionResult, Lap, Driver, Car, LeaderBoardLine],
+      synchronize: false,
     }),
     ReadJsonModule,
   ],

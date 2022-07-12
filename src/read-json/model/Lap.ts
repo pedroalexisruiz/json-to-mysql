@@ -21,7 +21,7 @@ export class Lap {
   @PrimaryColumn({ name: 'lap_number' })
   lapNumber: number;
   @Column({ name: 'driver_index' })
-  driverIndex: number;
+  driverIndex: number;// Esto lo voy a sacar mejor del playerId de Driver
   @Column()
   laptime: number;
   @Column({ name: 'is_valid' })

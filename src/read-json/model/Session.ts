@@ -27,6 +27,8 @@ export class Session {
     cascade: true,
   })
   sessionResult: SessionResult;
-  // @OneToMany((type) => Lap, (lap) => lap.session)
+  @OneToMany(() => Lap, (lap) => lap.session, {
+    cascade: true,
+  })
   laps: Lap[];
 }

@@ -9,13 +9,12 @@ import {
 import { Session } from './Session';
 
 @Entity()
-@Index(['carId', 'lapNumber'], { unique: true })
+@Index(['carId', 'sessionIndex', 'lapNumber'], { unique: true })
 export class Lap {
-  // @PrimaryColumn({
-  //   name: 'session_index',
-  // })
-  // @ManyToOne(() => Session, (session) => session.laps)
-  // @JoinColumn({ name: 'session_index' })
+  @PrimaryColumn({ name: 'session_index' })
+  sessionIndex: number;
+  @ManyToOne(() => Session, (session) => session.laps)
+  @JoinColumn({ name: 'session_index' })
   session: Session;
   @PrimaryColumn({ name: 'car_id' })
   carId: number;

@@ -12,6 +12,7 @@ export class LapFactory {
   toModel(lap: LapDto, sessionIndex: number, lapNumber: number): Lap {
     return {
       ...lap,
+      sessionIndex,
       session: {
         sessionIndex,
       } as Session,

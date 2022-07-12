@@ -29,7 +29,6 @@ export class ReadJsonService extends EventEmitter {
         const fileContent = await fsExtra.readFile(filePath, 'utf8');
         const sessionDto: SessionDto = JSON.parse(fileContent);
         const session: Session = this.sessionFactory.toModel(sessionDto);
-        console.log('session.sessionResult', session.sessionResult);
         this.sessionService.save(session);
 
         // emit an event when new file has been added

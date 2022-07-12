@@ -12,7 +12,6 @@ export class SessionFactory {
   ) {}
 
   toModel(sessionDto: SessionDto): Session {
-    console.log('sessionDto.sessionResult', sessionDto.sessionResult);
     return {
       ...sessionDto,
       sessionResult: this.sessionResultFactory.toModel({

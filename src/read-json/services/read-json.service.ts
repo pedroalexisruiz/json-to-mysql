@@ -24,7 +24,10 @@ export class ReadJsonService extends EventEmitter {
   }
   watchFolder(folder) {
     try {
-      const watcher = chokidar.watch(folder, { persistent: true });
+      const watcher = chokidar.watch(folder, {
+        persistent: true,
+        ignored: /entrylist/,
+      });
       watcher.on('add', async (filePath) => {
         console.log(
           `[${new Date().toLocaleString()}] ${filePath} has been added.`,
@@ -32,18 +35,22 @@ export class ReadJsonService extends EventEmitter {
         // Read content of new file
         const fileContent = await fsExtra.readFile(filePath, 'utf8');
         const sessionDto: SessionDto = JSON.parse(fileContent);
-        const { cars, drivers } = this.extractCarsAndDrivers(
-          sessionDto.sessionResult.leaderBoardLines,
+        let session: Session = await this.sessionService.findOne(
+          sessionDto.sessionIndex,
         );
-        const session: Session = this.sessionFactory.toModel(sessionDto);
-        this.carService.saveAll(cars);
-        this.driverService.saveAll(drivers);
-        this.sessionService.save(session);
+        if (!session) {
+          const { cars, drivers } = this.extractCarsAndDrivers(
+            sessionDto.sessionResult.leaderBoardLines,
+          );
+          session = this.sessionFactory.toModel(sessionDto);
+          this.carService.saveAll(cars);
+          this.driverService.saveAll(drivers);
+          this.sessionService.save(session);
 
-        // emit an event when new file has been added
-        this.emit('file-added', {
-          message: fileContent.toString(),
-        });
+          this.emit('file-added', {
+            message: fileContent.toString(),
+          });
+        }
       });
     } catch (error) {
       console.log(error);

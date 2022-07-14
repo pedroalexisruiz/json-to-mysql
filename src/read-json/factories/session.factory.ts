@@ -12,16 +12,14 @@ export class SessionFactory {
   ) {}
 
   toModel(sessionDto: SessionDto, fileName: string): Session {
+    // sessionResult: this.sessionResultFactory.toModel({
+    //   ...sessionDto.sessionResult,
+    //   sessionIndex: sessionDto.sessionIndex,
+    // }),
+    const { laps, sessionResult, ...rest } = sessionDto;
     return {
-      ...sessionDto,
+      ...rest,
       fileName,
-      sessionResult: this.sessionResultFactory.toModel({
-        ...sessionDto.sessionResult,
-        sessionIndex: sessionDto.sessionIndex,
-      }),
-      laps: sessionDto.laps.map((lapDto, lapNumber) =>
-        this.lapFactory.toModel(lapDto, sessionDto.sessionIndex, lapNumber),
-      ),
     };
   }
 }

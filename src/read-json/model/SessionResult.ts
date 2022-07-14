@@ -11,10 +11,10 @@ import { Session } from './Session';
 
 @Entity()
 export class SessionResult {
-  @PrimaryColumn({ name: 'session_index' })
-  sessionIndex: number;
+  @PrimaryColumn({ name: 'session_id' })
+  sessionId: number;
   @OneToOne(() => Session, (session) => session.sessionResult)
-  @JoinColumn({ name: 'session_index' })
+  @JoinColumn({ name: 'session_id' })
   session: Session;
   @Column()
   bestlap: number;

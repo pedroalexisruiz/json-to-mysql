@@ -8,20 +8,20 @@ import {
 } from 'typeorm';
 import { Session } from './Session';
 
-@Entity()
-@Index(['carId', 'sessionIndex', 'lapNumber'], { unique: true })
+@Entity({ name: 'acc_lap' })
+@Index(['carId', 'sessionId', 'lapNumber'], { unique: true })
 export class Lap {
-  @PrimaryColumn({ name: 'session_index' })
-  sessionIndex: number;
-  @ManyToOne(() => Session, (session) => session.laps)
-  @JoinColumn({ name: 'session_index' })
+  @PrimaryColumn({ name: 'session_id' })
+  sessionId: number;
+  @ManyToOne(() => Session, { cascade: false })
+  @JoinColumn({ name: 'session_id' })
   session: Session;
   @PrimaryColumn({ name: 'car_id' })
   carId: number;
   @PrimaryColumn({ name: 'lap_number' })
   lapNumber: number;
   @Column({ name: 'driver_index' })
-  driverIndex: number;// Esto lo voy a sacar mejor del playerId de Driver
+  driverIndex: number; // Esto lo voy a sacar mejor del playerId de Driver
   @Column()
   laptime: number;
   @Column({ name: 'is_valid' })

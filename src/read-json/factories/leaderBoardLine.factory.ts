@@ -9,17 +9,17 @@ export class LeaderBoardLineFactory {
 
   toModel(
     leaderBoardLine: LeaderBoardLineDto,
-    sessionIndex: number,
+    sessionId: number,
     position: number,
   ): LeaderBoardLine {
     const { lastLap, lastSplits, bestLap, bestSplits, totalTime, lapCount } =
       leaderBoardLine.timing;
     return {
       ...leaderBoardLine,
-      sessionIndex,
+      sessionId,
       position,
       sessionResult: {
-        sessionIndex,
+        sessionId,
       } as SessionResult,
       carId: leaderBoardLine.car.carId,
       playerId: leaderBoardLine.currentDriver.playerId,

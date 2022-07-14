@@ -14,7 +14,9 @@ import { SessionResult } from './model/SessionResult';
 import { ReadJsonController } from './read-json.controller';
 import { CarService } from './services/car.service';
 import { DriverService } from './services/driver.service';
+import { LapService } from './services/lap.service';
 import { ReadJsonService } from './services/read-json.service';
+import { SessionResultService } from './services/session-result.service';
 import { SessionService } from './services/session.service';
 
 @Module({
@@ -43,6 +45,7 @@ import { SessionService } from './services/session.service';
           entities: [Session, SessionResult, Lap, Driver, Car, LeaderBoardLine],
           synchronize: false,
           name: 'assetoCorsaConnection',
+          logging: ['error'],
         });
         return dataSource.initialize();
       },
@@ -50,6 +53,8 @@ import { SessionService } from './services/session.service';
     LapFactory,
     SessionResultFactory,
     SessionFactory,
+    LapService,
+    SessionResultService,
     SessionService,
     ReadJsonService,
     LeaderBoardLineFactory,

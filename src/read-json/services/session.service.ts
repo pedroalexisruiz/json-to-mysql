@@ -14,8 +14,8 @@ export class SessionService {
     return this.sessionsRepository.find();
   }
 
-  findOne(sessionIndex: number): Promise<Session> {
-    return this.sessionsRepository.findOneBy({ sessionIndex });
+  findOne(fileName: string): Promise<Session> {
+    return this.sessionsRepository.findOneBy({ fileName });
   }
 
   async remove(sessionIndex: number): Promise<void> {
@@ -24,7 +24,7 @@ export class SessionService {
 
   async save(Session: Session): Promise<Session> {
     try {
-      return this.sessionsRepository.save(Session);
+      return await this.sessionsRepository.save(Session);
     } catch (error) {
       console.log('Error guardando sesión');
     }

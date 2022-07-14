@@ -8,13 +8,13 @@ import { LeaderBoardLineFactory } from './leaderBoardLine.factory';
 export class SessionResultFactory {
   constructor(private leaderBoardLineFactory: LeaderBoardLineFactory) {}
 
-  toModel(sessionResultDto: SessionResultDto): SessionResult {
+  toModel(sessionResultDto: SessionResultDto, session: Session): SessionResult {
     const leaderBoardLines = sessionResultDto.leaderBoardLines.map(
       (leaderBoardLine, index) =>
         this.leaderBoardLineFactory.toModel(
           leaderBoardLine,
-          sessionResultDto.sessionIndex,
-          index
+          session.sessionId,
+          index,
         ),
     );
     return {
@@ -28,10 +28,11 @@ export class SessionResultFactory {
       bestSector3: sessionResultDto.bestSplits
         ? sessionResultDto.bestSplits[2]
         : 0,
-      session: {
-        sessionIndex: sessionResultDto.sessionIndex,
-      } as Session,
       leaderBoardLines,
+      session: {
+        sessionId: session.sessionId,
+      } as Session,
+      sessionId: session.sessionId,
     };
   }
 }

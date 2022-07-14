@@ -12,10 +12,10 @@ import {
 } from 'typeorm';
 
 @Entity()
-@Index(['carId', 'sessionIndex', 'playerId'], { unique: true })
+@Index(['carId', 'sessionId', 'playerId'], { unique: true })
 export class LeaderBoardLine {
-  @PrimaryColumn({ name: 'session_index' })
-  sessionIndex: number;
+  @PrimaryColumn({ name: 'session_id' })
+  sessionId: number;
   @PrimaryColumn({ name: 'car_id' })
   carId: number;
   @PrimaryColumn({ name: 'player_id' })
@@ -25,7 +25,7 @@ export class LeaderBoardLine {
   @ManyToOne(() => SessionResult, (result) => result.leaderBoardLines, {
     cascade: false,
   })
-  @JoinColumn({ name: 'session_index' })
+  @JoinColumn({ name: 'session_id' })
   sessionResult: SessionResult;
 
   @OneToOne(() => Car, { cascade: false })

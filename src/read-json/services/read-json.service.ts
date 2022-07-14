@@ -2,12 +2,17 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { LeaderBoardLineDto } from '../dtos/LeaderBoardLine';
 import { SessionDto } from '../dtos/Session';
+import { LapFactory } from '../factories/lap.factory';
+import { SessionResultFactory } from '../factories/session-result.factory';
 import { SessionFactory } from '../factories/session.factory';
 import { Car } from '../model/Car';
 import { Driver } from '../model/Driver';
 import { Session } from '../model/Session';
+import { SessionResult } from '../model/SessionResult';
 import { CarService } from './car.service';
 import { DriverService } from './driver.service';
+import { LapService } from './lap.service';
+import { SessionResultService } from './session-result.service';
 import { SessionService } from './session.service';
 const chokidar = require('chokidar');
 const EventEmitter = require('events').EventEmitter;
@@ -20,6 +25,10 @@ export class ReadJsonService extends EventEmitter {
     private carService: CarService,
     private driverService: DriverService,
     private sessionFactory: SessionFactory,
+    private lapFactory: LapFactory,
+    private lapService: LapService,
+    private sessionResultFactory: SessionResultFactory,
+    private sessionResultService: SessionResultService,
     @Inject('DATA_SOURCE') private datasource: DataSource,
   ) {
     super();
@@ -34,15 +43,14 @@ export class ReadJsonService extends EventEmitter {
         console.log(
           `[${new Date().toLocaleString()}] ${filePath} has been added.`,
         );
+        const routeFolders = filePath.split('\\');
+        const fileName = routeFolders[routeFolders.length - 1];
         // Read content of new file
         const fileContent = await fsExtra.readFile(filePath, 'utf8');
-        const sessionDto: SessionDto = JSON.parse(fileContent);
-        let session: Session = await this.sessionService.findOne(
-          sessionDto.sessionIndex,
-        );
+        let session: Session = await this.sessionService.findOne(fileName);
+
         if (!session) {
-          const routeFolders = filePath.split('\\');
-          const fileName = routeFolders[routeFolders.length - 1];
+          const sessionDto: SessionDto = JSON.parse(fileContent);
           await this.saveSessionReport(sessionDto, fileName);
           // Aqui ejecutas cualquier query
           try {
@@ -73,9 +81,20 @@ export class ReadJsonService extends EventEmitter {
       sessionDto.sessionResult.leaderBoardLines,
     );
     const session = this.sessionFactory.toModel(sessionDto, fileName);
+    let sessionSaved: Session;
     await this.carService.saveAll(cars);
     await this.driverService.saveAll(drivers);
-    await this.sessionService.save(session);
+    sessionSaved = await this.sessionService.save(session);
+    const laps = this.lapFactory.bulkToModel(
+      sessionDto.laps,
+      sessionSaved.sessionId,
+    );
+    await this.lapService.saveAll(laps);
+    const sessionResult: SessionResult = this.sessionResultFactory.toModel(
+      sessionDto.sessionResult,
+      sessionSaved,
+    );
+    await this.sessionResultService.save(sessionResult);
   }
   extractCarsAndDrivers(leaderBoardLines: LeaderBoardLineDto[]): {
     cars: Car[];

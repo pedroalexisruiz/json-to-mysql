@@ -46,7 +46,7 @@ export class ReadJsonService extends EventEmitter {
         const routeFolders = filePath.split('\\');
         const fileName = routeFolders[routeFolders.length - 1];
         // Read content of new file
-        const fileContent = await fsExtra.readFile(filePath, 'utf8');
+        const fileContent = await fsExtra.readFile(filePath, 'utf-16le');
         let session: Session = await this.sessionService.findOne(fileName);
 
         if (!session) {
@@ -77,13 +77,13 @@ export class ReadJsonService extends EventEmitter {
     sessionDto: SessionDto,
     fileName: string,
   ): Promise<void> {
+    let sessionSaved: Session;
     const { cars, drivers } = this.extractCarsAndDrivers(
       sessionDto.sessionResult.leaderBoardLines,
     );
     const session = this.sessionFactory.toModel(sessionDto, fileName);
-    let sessionSaved: Session;
-    await this.carService.saveAll(cars);
-    await this.driverService.saveAll(drivers);
+    await this.carService.bulkSave(cars);
+    await this.driverService.bulkSave(drivers);
     sessionSaved = await this.sessionService.save(session);
     const laps = this.lapFactory.bulkToModel(
       sessionDto.laps,

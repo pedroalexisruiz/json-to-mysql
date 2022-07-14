@@ -37,4 +37,14 @@ export class DriverService {
       console.log('Algunos conductores ya están registrados');
     }
   }
+
+  async bulkSave(drivers: Driver[]): Promise<void> {
+    drivers.forEach(async (driver) => {
+      try {
+        await this.save(driver);
+      } catch (error) {
+        console.log(`El conductor ${driver.playerId} ya existían en BD`);
+      }
+    });
+  }
 }

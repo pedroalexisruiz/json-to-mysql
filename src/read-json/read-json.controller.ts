@@ -8,7 +8,7 @@ export class ReadJsonController {
   }
 
   listen(): void {
-    const folder = 'Jsons';
+    const folder = 'C:/Users/PEDRO.RUIZ/Documents/Jsons';
     this.readJsonService.on('file-added', (log) => {});
     this.readJsonService.watchFolder(folder);
   }

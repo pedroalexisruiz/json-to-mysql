@@ -37,4 +37,14 @@ export class CarService {
       console.log('Algunos carros ya existían en BD');
     }
   }
+
+  async bulkSave(cars: Car[]): Promise<void> {
+    cars.forEach(async (car) => {
+      try {
+        await this.save(car);
+      } catch (error) {
+        console.log(`El vehiculo ${car.carId} ya existían en BD`);
+      }
+    });
+  }
 }

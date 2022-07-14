@@ -32,6 +32,7 @@ export class ReadJsonService extends EventEmitter {
         console.log(
           `[${new Date().toLocaleString()}] ${filePath} has been added.`,
         );
+        const fileName = filePath.split('\\')[1];
         // Read content of new file
         const fileContent = await fsExtra.readFile(filePath, 'utf8');
         const sessionDto: SessionDto = JSON.parse(fileContent);
@@ -39,14 +40,7 @@ export class ReadJsonService extends EventEmitter {
           sessionDto.sessionIndex,
         );
         if (!session) {
-          const { cars, drivers } = this.extractCarsAndDrivers(
-            sessionDto.sessionResult.leaderBoardLines,
-          );
-          session = this.sessionFactory.toModel(sessionDto);
-          this.carService.saveAll(cars);
-          this.driverService.saveAll(drivers);
-          this.sessionService.save(session);
-
+          await this.saveSessionReport(sessionDto, fileName);
           this.emit('file-added', {
             message: fileContent.toString(),
           });
@@ -57,6 +51,18 @@ export class ReadJsonService extends EventEmitter {
     }
   }
 
+  async saveSessionReport(
+    sessionDto: SessionDto,
+    fileName: string,
+  ): Promise<void> {
+    const { cars, drivers } = this.extractCarsAndDrivers(
+      sessionDto.sessionResult.leaderBoardLines,
+    );
+    const session = this.sessionFactory.toModel(sessionDto, fileName);
+    await this.carService.saveAll(cars);
+    await this.driverService.saveAll(drivers);
+    await this.sessionService.save(session);
+  }
   extractCarsAndDrivers(leaderBoardLines: LeaderBoardLineDto[]): {
     cars: Car[];
     drivers: Driver[];

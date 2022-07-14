@@ -26,7 +26,6 @@ export class SessionService {
     try {
       return this.sessionsRepository.save(Session);
     } catch (error) {
-      console.log(error);
       console.log('Error guardando sesión');
     }
   }

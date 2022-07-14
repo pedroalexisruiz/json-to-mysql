@@ -26,8 +26,7 @@ export class CarService {
     try {
       return this.carsRepository.save(car);
     } catch (error) {
-      console.log(error);
-      console.log('Error guardando sesión');
+      console.log('El carro ya existe en BD');
     }
   }
 
@@ -35,7 +34,7 @@ export class CarService {
     try {
       return await this.carsRepository.save(cars);
     } catch (error) {
-      console.log('Error guardando cars');
+      console.log('Algunos carros ya existían en BD');
     }
   }
 }

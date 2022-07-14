@@ -11,9 +11,10 @@ export class SessionFactory {
     private lapFactory: LapFactory,
   ) {}
 
-  toModel(sessionDto: SessionDto): Session {
+  toModel(sessionDto: SessionDto, fileName: string): Session {
     return {
       ...sessionDto,
+      fileName,
       sessionResult: this.sessionResultFactory.toModel({
         ...sessionDto.sessionResult,
         sessionIndex: sessionDto.sessionIndex,

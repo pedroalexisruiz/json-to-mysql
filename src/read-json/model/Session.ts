@@ -4,6 +4,8 @@ import { Entity, Column, PrimaryColumn, OneToOne, OneToMany } from 'typeorm';
 
 @Entity()
 export class Session {
+  @Column({ name: 'file_name', unique: true })
+  fileName: string;
   @Column({ name: 'session_type' })
   sessionType: string;
   @Column({ name: 'track_name' })

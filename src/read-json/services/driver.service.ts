@@ -26,8 +26,7 @@ export class DriverService {
     try {
       return this.driversRepository.save(Driver);
     } catch (error) {
-      console.log(error);
-      console.log('Error guardando sesión');
+      console.log('El conductor ya existe');
     }
   }
 
@@ -35,7 +34,7 @@ export class DriverService {
     try {
       return await this.driversRepository.save(drivers);
     } catch (error) {
-      console.log('Error guardando drivers');
+      console.log('Algunos conductores ya están registrados');
     }
   }
 }

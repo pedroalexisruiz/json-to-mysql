@@ -1,4 +1,3 @@
-import { Timing } from './Timing';
 import { Driver } from './Driver';
 import { Car } from './Car';
 import { SessionResult } from './SessionResult';
@@ -21,8 +20,11 @@ export class LeaderBoardLine {
   carId: number;
   @PrimaryColumn({ name: 'player_id' })
   playerId: string;
-
-  @ManyToOne(() => SessionResult, (result) => result.leaderBoardLines)
+  @Column()
+  position: number;
+  @ManyToOne(() => SessionResult, (result) => result.leaderBoardLines, {
+    cascade: false,
+  })
   @JoinColumn({ name: 'session_index' })
   sessionResult: SessionResult;
 
@@ -35,7 +37,26 @@ export class LeaderBoardLine {
   currentDriver: Driver;
   @Column()
   currentDriverIndex: number;
-  timing: Timing;
+  @Column({ name: 'tiempo_ultima_vuelta' })
+  lastLap: number;
+  @Column({ name: 'ultimo_sector1' })
+  lastSector1: number;
+  @Column({ name: 'ultimo_sector2' })
+  lastSector2: number;
+  @Column({ name: 'ultimo_sector3' })
+  lastSector3: number;
+  @Column({ name: 'mejor_vuelta' })
+  bestLap: number;
+  @Column({ name: 'mejor_sector1' })
+  bestSector1: number;
+  @Column({ name: 'mejor_sector2' })
+  bestSector2: number;
+  @Column({ name: 'mejor_sector3' })
+  bestSector3: number;
+  @Column({ name: 'tiempo_total' })
+  totalTime: number;
+  @Column({ name: 'cantidad_de_vueltas' })
+  lapCount: number;
   @Column()
   missingMandatoryPitstop: number;
   driverTotalTimes: number[];

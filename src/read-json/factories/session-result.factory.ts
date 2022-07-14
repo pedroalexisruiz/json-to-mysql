@@ -10,10 +10,11 @@ export class SessionResultFactory {
 
   toModel(sessionResultDto: SessionResultDto): SessionResult {
     const leaderBoardLines = sessionResultDto.leaderBoardLines.map(
-      (leaderBoardLine) =>
+      (leaderBoardLine, index) =>
         this.leaderBoardLineFactory.toModel(
           leaderBoardLine,
           sessionResultDto.sessionIndex,
+          index
         ),
     );
     return {

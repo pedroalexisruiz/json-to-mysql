@@ -34,7 +34,6 @@ export class ReadJsonService extends EventEmitter {
         console.log(
           `[${new Date().toLocaleString()}] ${filePath} has been added.`,
         );
-        const fileName = filePath.split('\\')[1];
         // Read content of new file
         const fileContent = await fsExtra.readFile(filePath, 'utf8');
         const sessionDto: SessionDto = JSON.parse(fileContent);
@@ -42,6 +41,8 @@ export class ReadJsonService extends EventEmitter {
           sessionDto.sessionIndex,
         );
         if (!session) {
+          const routeFolders = filePath.split('\\');
+          const fileName = routeFolders[routeFolders.length - 1];
           await this.saveSessionReport(sessionDto, fileName);
           // Aqui ejecutas cualquier query
           try {

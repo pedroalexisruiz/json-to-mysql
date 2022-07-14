@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Session } from 'src/read-json/model/Session';
+import { DataSource } from 'typeorm';
 import { LapFactory } from './factories/lap.factory';
 import { LeaderBoardLineFactory } from './factories/leaderBoardLine.factory';
 import { SessionResultFactory } from './factories/session-result.factory';
@@ -29,6 +30,23 @@ import { SessionService } from './services/session.service';
   ],
   controllers: [ReadJsonController],
   providers: [
+    {
+      provide: 'DATA_SOURCE',
+      useFactory: async () => {
+        const dataSource = new DataSource({
+          type: 'mysql',
+          host: 'localhost',
+          port: 3306,
+          username: 'root',
+          password: '',
+          database: 'asseto_corsa',
+          entities: [Session, SessionResult, Lap, Driver, Car, LeaderBoardLine],
+          synchronize: false,
+          name: 'assetoCorsaConnection',
+        });
+        return dataSource.initialize();
+      },
+    },
     LapFactory,
     SessionResultFactory,
     SessionFactory,

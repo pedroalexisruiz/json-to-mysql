@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { DataSource } from 'typeorm';
 import { LeaderBoardLineDto } from '../dtos/LeaderBoardLine';
 import { SessionDto } from '../dtos/Session';
 import { SessionFactory } from '../factories/session.factory';
@@ -19,6 +20,7 @@ export class ReadJsonService extends EventEmitter {
     private carService: CarService,
     private driverService: DriverService,
     private sessionFactory: SessionFactory,
+    @Inject('DATA_SOURCE') private datasource: DataSource,
   ) {
     super();
   }
@@ -41,6 +43,17 @@ export class ReadJsonService extends EventEmitter {
         );
         if (!session) {
           await this.saveSessionReport(sessionDto, fileName);
+          // Aqui ejecutas cualquier query
+          try {
+            // this.datasource.query(
+            //   "INSERT INTO `driver` (`player_id`, `first_name`, `last_name`, `short_name`) VALUES ('123', 'Pedro', 'Ruiz', 'Pedroru');",
+            // );
+          } catch (error) {
+            console.log(
+              'La query que est{as intentando ejecutar genera un erroe en BD',
+            );
+          }
+
           this.emit('file-added', {
             message: fileContent.toString(),
           });

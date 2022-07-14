@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn, OneToOne, OneToMany } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'acc_car' })
 export class Car {
   @PrimaryColumn({ name: 'car_id' })
   carId: number;

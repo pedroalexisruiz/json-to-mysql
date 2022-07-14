@@ -11,7 +11,7 @@ import {
   Index,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'acc_leaderboardline' })
 @Index(['carId', 'sessionId', 'playerId'], { unique: true })
 export class LeaderBoardLine {
   @PrimaryColumn({ name: 'session_id' })

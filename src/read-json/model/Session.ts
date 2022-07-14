@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'acc_session' })
 export class Session {
   @PrimaryGeneratedColumn('increment', { name: 'session_id' })
   sessionId?: number;

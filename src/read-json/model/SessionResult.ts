@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Session } from './Session';
 
-@Entity()
+@Entity({ name: 'acc_sessionresults' })
 export class SessionResult {
   @PrimaryColumn({ name: 'session_id' })
   sessionId: number;

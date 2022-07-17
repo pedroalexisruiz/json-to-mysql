@@ -12,14 +12,12 @@ import {
 } from 'typeorm';
 
 @Entity({ name: 'acc_leaderboardline' })
-@Index(['carId', 'sessionId', 'playerId'], { unique: true })
+@Index(['sessionId', 'position'], { unique: true })
 export class LeaderBoardLine {
   @PrimaryColumn({ name: 'session_id' })
   sessionId: number;
   @PrimaryColumn({ name: 'car_id' })
   carId: number;
-  @PrimaryColumn({ name: 'player_id' })
-  playerId: string;
   @Column()
   position: number;
   @ManyToOne(() => SessionResult, (result) => result.leaderBoardLines, {
@@ -32,11 +30,6 @@ export class LeaderBoardLine {
   @JoinColumn({ name: 'car_id' })
   car: Car;
 
-  @OneToOne(() => Driver, { cascade: false })
-  @JoinColumn({ name: 'player_id' })
-  currentDriver: Driver;
-  @Column()
-  currentDriverIndex: number;
   @Column({ name: 'tiempo_ultima_vuelta' })
   lastLap: number;
   @Column({ name: 'ultimo_sector1' })

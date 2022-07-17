@@ -3,10 +3,12 @@ import { DataSource } from 'typeorm';
 import { LeaderBoardLineDto } from '../dtos/LeaderBoardLine';
 import { SessionDto } from '../dtos/Session';
 import { LapFactory } from '../factories/lap.factory';
+import { LeaderBoardLineFactory } from '../factories/leaderBoardLine.factory';
 import { SessionResultFactory } from '../factories/session-result.factory';
 import { SessionFactory } from '../factories/session.factory';
 import { Car } from '../model/Car';
 import { Driver } from '../model/Driver';
+import { LeaderBoardLine } from '../model/LeaderBoardLine';
 import { Session } from '../model/Session';
 import { SessionResult } from '../model/SessionResult';
 import { CarService } from './car.service';
@@ -29,6 +31,7 @@ export class ReadJsonService extends EventEmitter {
     private lapService: LapService,
     private sessionResultFactory: SessionResultFactory,
     private sessionResultService: SessionResultService,
+    private leaderBoardLineFactory: LeaderBoardLineFactory,
     @Inject('DATA_SOURCE') private datasource: DataSource,
   ) {
     super();
@@ -78,25 +81,34 @@ export class ReadJsonService extends EventEmitter {
     fileName: string,
   ): Promise<void> {
     let sessionSaved: Session;
-    const { cars, drivers } = this.extractCarsAndDrivers(
-      sessionDto.sessionResult.leaderBoardLines,
-    );
+
     const session = this.sessionFactory.toModel(sessionDto, fileName);
-    await this.carService.bulkSave(cars);
-    await this.driverService.bulkSave(drivers);
     sessionSaved = await this.sessionService.save(session);
-    const laps = this.lapFactory.bulkToModel(
-      sessionDto.laps,
-      sessionSaved.sessionId,
+    const leaderBoardLines = sessionDto.sessionResult.leaderBoardLines.map(
+      (leaderBoardLineDto, index) =>
+        this.leaderBoardLineFactory.toModel(
+          leaderBoardLineDto,
+          sessionSaved.sessionId,
+          index + 1,
+        ),
     );
-    await this.lapService.saveAll(laps);
+
+    const { cars, drivers } = this.extractCarsAndDrivers(leaderBoardLines);
+    await this.driverService.saveAll(drivers);
+    await this.carService.saveAll(cars);
+
     const sessionResult: SessionResult = this.sessionResultFactory.toModel(
       sessionDto.sessionResult,
       sessionSaved,
     );
     await this.sessionResultService.save(sessionResult);
+    const laps = this.lapFactory.bulkToModel(
+      sessionDto.laps,
+      sessionSaved.sessionId,
+    );
+    await this.lapService.saveAll(laps);
   }
-  extractCarsAndDrivers(leaderBoardLines: LeaderBoardLineDto[]): {
+  extractCarsAndDrivers(leaderBoardLines: LeaderBoardLine[]): {
     cars: Car[];
     drivers: Driver[];
   } {
@@ -106,8 +118,8 @@ export class ReadJsonService extends EventEmitter {
     leaderBoardLines.forEach((liderBoardLine) => {
       carsMap.set(liderBoardLine.car.carId, liderBoardLine.car);
       driversMap.set(
-        liderBoardLine.currentDriver.playerId,
-        liderBoardLine.currentDriver,
+        liderBoardLine.car.driver.playerId,
+        liderBoardLine.car.driver,
       );
     });
 

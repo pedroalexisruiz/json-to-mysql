@@ -14,7 +14,7 @@ export class SessionResultFactory {
         this.leaderBoardLineFactory.toModel(
           leaderBoardLine,
           session.sessionId,
-          index,
+          index + 1,
         ),
     );
     return {

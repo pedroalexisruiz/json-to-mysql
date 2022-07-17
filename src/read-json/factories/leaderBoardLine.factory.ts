@@ -12,6 +12,7 @@ export class LeaderBoardLineFactory {
     sessionId: number,
     position: number,
   ): LeaderBoardLine {
+    const { currentDriver } = leaderBoardLine;
     const { lastLap, lastSplits, bestLap, bestSplits, totalTime, lapCount } =
       leaderBoardLine.timing;
     return {
@@ -22,7 +23,12 @@ export class LeaderBoardLineFactory {
         sessionId,
       } as SessionResult,
       carId: leaderBoardLine.car.carId,
-      playerId: leaderBoardLine.currentDriver.playerId,
+      car: {
+        ...leaderBoardLine.car,
+        sessionId,
+        playerId: currentDriver.playerId,
+        driver: currentDriver,
+      },
       lastLap,
       lastSector1: lastSplits[0],
       lastSector2: lastSplits[1],

@@ -43,7 +43,7 @@ export class CarService {
       try {
         await this.save(car);
       } catch (error) {
-        console.log(`El vehiculo ${car.carId} ya existían en BD`);
+        console.log(`El vehiculo ${car.carId}, en la sesión ${car.sessionId} ya existían en BD`);
       }
     });
   }

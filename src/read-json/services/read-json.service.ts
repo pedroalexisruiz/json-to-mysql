@@ -93,6 +93,7 @@ export class ReadJsonService extends EventEmitter {
 
     const session = this.sessionFactory.toModel(sessionDto, fileName);
     sessionSaved = await this.sessionService.save(session);
+    console.log('Guardé session');
     const leaderBoardLines = sessionDto.sessionResult.leaderBoardLines.map(
       (leaderBoardLineDto, index) =>
         this.leaderBoardLineFactory.toModel(
@@ -104,18 +105,21 @@ export class ReadJsonService extends EventEmitter {
 
     const { cars, drivers } = this.extractCarsAndDrivers(leaderBoardLines);
     await this.driverService.bulkSave(drivers);
+    console.log('Guardé pilotos');
     await this.carService.bulkSave(cars);
-
+    console.log('Guardé vehículos');
     const sessionResult: SessionResult = this.sessionResultFactory.toModel(
       sessionDto.sessionResult,
       sessionSaved,
     );
     await this.sessionResultService.save(sessionResult);
+    console.log('Guardé resultados');
     const laps = this.lapFactory.bulkToModel(
       sessionDto.laps,
       sessionSaved.sessionId,
     );
     await this.lapService.saveAll(laps);
+    console.log('Guardé vueltas');
   }
   extractCarsAndDrivers(leaderBoardLines: LeaderBoardLine[]): {
     cars: Car[];

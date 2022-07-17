@@ -8,10 +8,7 @@ export class ReadJsonController {
   }
 
   listen(): void {
-    const folders = [
-      'C:/Users/PEDRO.RUIZ/Documents/Jsons',
-      'D:/Proyectos/liga f1/json-to-mysql/Jsons',
-    ];
+    const folders = ['C:/Users/PEDRO.RUIZ/Documents/results'];
     this.readJsonService.on('file-added', (log) => {});
     this.readJsonService.watchFolder(folders);
   }

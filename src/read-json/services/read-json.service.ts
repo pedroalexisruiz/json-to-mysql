@@ -104,19 +104,29 @@ export class ReadJsonService extends EventEmitter {
 
     const { cars, drivers } = this.extractCarsAndDrivers(leaderBoardLines);
     await this.driverService.bulkSave(drivers);
-    console.log('Guardé pilotos');
+    console.log(
+      `Guardé pilotos ${session.sessionType},${session.metaData}, ${session.serverName}`,
+    );
     await this.carService.bulkSave(cars);
-    console.log('Guardé vehículos');
+    console.log(
+      `Guardé vehiculos ${session.sessionType},${session.metaData}, ${session.serverName}`,
+    );
     const sessionResult: SessionResult = this.sessionResultFactory.toModel(
       sessionDto.sessionResult,
       sessionSaved,
     );
     await this.sessionResultService.save(sessionResult);
+    console.log(
+      `Guardé resultados ${session.sessionType},${session.metaData}, ${session.serverName}`,
+    );
     const laps = this.lapFactory.bulkToModel(
       sessionDto.laps,
       sessionSaved.sessionId,
     );
     await this.lapService.saveAll(laps);
+    console.log(
+      `Guardé vueltas ${session.sessionType},${session.metaData}, ${session.serverName}`,
+    );
   }
   extractCarsAndDrivers(leaderBoardLines: LeaderBoardLine[]): {
     cars: Car[];

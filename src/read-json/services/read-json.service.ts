@@ -47,28 +47,11 @@ export class ReadJsonService extends EventEmitter {
           `[${new Date().toLocaleString()}] ${filePath} has been added.`,
         );
         const routeFolders = filePath.split('\\');
-        const fileName = routeFolders[routeFolders.length - 1];
+        const fileName: string = routeFolders[routeFolders.length - 1];
         // Read content of new file
         const fileContent = await fsExtra.readFile(filePath, 'utf-16le');
-        let session: Session = await this.sessionService.findOne(fileName);
-
-        if (!session) {
-          const sessionDto: SessionDto = JSON.parse(fileContent);
-          await this.saveSessionReport(sessionDto, fileName);
-          // Aqui ejecutas cualquier query
-          try {
-            // this.datasource.query(
-            //   "INSERT INTO `driver` (`player_id`, `first_name`, `last_name`, `short_name`) VALUES ('123', 'Pedro', 'Ruiz', 'Pedroru');",
-            // );
-          } catch (error) {
-            console.log(
-              'La query que est{as intentando ejecutar genera un erroe en BD',
-            );
-          }
-
-          this.emit('file-added', {
-            message: fileContent.toString(),
-          });
+        if (fileContent) {
+          this.generateReport(fileName, fileContent);
         }
       });
     } catch (error) {
@@ -76,6 +59,32 @@ export class ReadJsonService extends EventEmitter {
     }
   }
 
+  async generateReport(fileName: string, fileContent: string) {
+    let session: Session = await this.sessionService.findOne(fileName);
+
+    if (!session) {
+      try {
+        const sessionDto: SessionDto = JSON.parse(fileContent);
+        await this.saveSessionReport(sessionDto, fileName);
+      } catch (error) {
+        console.log(`El archivo ${fileName} tiene un formato incorrecto`);
+      }
+      // Aqui ejecutas cualquier query
+      try {
+        // this.datasource.query(
+        //   "INSERT INTO `driver` (`player_id`, `first_name`, `last_name`, `short_name`) VALUES ('123', 'Pedro', 'Ruiz', 'Pedroru');",
+        // );
+      } catch (error) {
+        console.log(
+          'La query que est{as intentando ejecutar genera un erroe en BD',
+        );
+      }
+
+      this.emit('file-added', {
+        message: fileContent.toString(),
+      });
+    }
+  }
   async saveSessionReport(
     sessionDto: SessionDto,
     fileName: string,
@@ -94,8 +103,8 @@ export class ReadJsonService extends EventEmitter {
     );
 
     const { cars, drivers } = this.extractCarsAndDrivers(leaderBoardLines);
-    await this.driverService.saveAll(drivers);
-    await this.carService.saveAll(cars);
+    await this.driverService.bulkSave(drivers);
+    await this.carService.bulkSave(cars);
 
     const sessionResult: SessionResult = this.sessionResultFactory.toModel(
       sessionDto.sessionResult,

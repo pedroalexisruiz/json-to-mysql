@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { LeaderBoardLineDto } from '../dtos/LeaderBoardLine';
 import { SessionDto } from '../dtos/Session';
 import { LapFactory } from '../factories/lap.factory';
 import { LeaderBoardLineFactory } from '../factories/leaderBoardLine.factory';

@@ -24,7 +24,7 @@ export class AC1Event {
   @ManyToOne(() => AC1Driver, {
     cascade: false,
   })
-  @JoinColumn({ name: 'driver_guid', referencedColumnName: 'guid' })
+  @JoinColumn({ name: 'driver_guid', referencedColumnName: 'Guid' })
   Driver: AC1Driver;
   @Column({ name: 'impact_speed' })
   ImpactSpeed: number;
@@ -35,7 +35,7 @@ export class AC1Event {
   @ManyToOne(() => AC1Driver, {
     cascade: false,
   })
-  @JoinColumn({ name: 'other_driver_guid', referencedColumnName: 'guid' })
+  @JoinColumn({ name: 'other_driver_guid', referencedColumnName: 'Guid' })
   OtherDriver: AC1Driver;
   @Column({ name: 'type' })
   Type: string; // COLLISION_WITH_CAR, COLLISION_WITH_ENV

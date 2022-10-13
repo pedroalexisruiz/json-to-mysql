@@ -20,7 +20,7 @@ export class AC1Result {
   DriverGuid: string;
   @Column({ name: 'driver_name' })
   DriverName: string;
-  @Column()
+  @Column({ name: 'restrictor' })
   Restrictor: number;
   @Column({ name: 'total_time' })
   TotalTime: number;
@@ -34,6 +34,6 @@ export class AC1Result {
   PenaltyTime: number;
   @Column({ name: 'lap_penalty' })
   LapPenalty: number;
-  @Column()
+  @Column({ name: 'disqualified' })
   Disqualified: boolean;
 }

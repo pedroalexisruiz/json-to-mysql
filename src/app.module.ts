@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AC1_ENTITIES } from './read-json/model/ac1';
 import { Car } from './read-json/model/Car';
 import { Driver } from './read-json/model/Driver';
 import { Lap } from './read-json/model/Lap';
@@ -17,8 +18,17 @@ import { ReadJsonModule } from './read-json/ReadJson.module';
       username: 'root',
       password: '',
       database: 'asseto_corsa',
-      entities: [Session, SessionResult, Lap, Driver, Car, LeaderBoardLine],
+      entities: [
+        Session,
+        SessionResult,
+        Lap,
+        Driver,
+        Car,
+        LeaderBoardLine,
+        ...AC1_ENTITIES,
+      ],
       synchronize: false,
+      logging: true
     }),
     ReadJsonModule,
   ],

@@ -11,6 +11,8 @@ import { AC1Session } from './AC1Session';
 
 @Entity({ name: 'ac1_car' })
 export class AC1Car {
+  @PrimaryColumn({ name: 'car_id' })
+  CarId: number;
   @PrimaryColumn({ name: 'session_id' })
   sessionId: number;
   @OneToOne(() => AC1Session, {
@@ -25,15 +27,13 @@ export class AC1Car {
   })
   @JoinColumn({ name: 'guid' })
   Driver: AC1Driver;
-  @PrimaryColumn({ name: 'car_id' })
-  CarId: number;
   @Column({ name: 'ballast_kg' })
   BallastKG: number;
-  @Column()
+  @Column({ name: 'model' })
   Model: string;
-  @Column()
+  @Column({ name: 'restrictor' })
   Restrictor: number;
-  @Column()
+  @Column({ name: 'skin' })
   Skin: string;
   @Column({ name: 'class_id' })
   ClassID: string;

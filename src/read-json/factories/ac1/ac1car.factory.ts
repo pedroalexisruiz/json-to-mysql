@@ -7,11 +7,10 @@ import { AC1Session } from 'src/read-json/model/ac1/AC1Session';
 export class AC1CarFactory {
   constructor() {}
 
-  toModel(carDto: AC1CarDTO, session: AC1Session): AC1Car {
+  toModel(carDto: AC1CarDTO, sessionId: number): AC1Car {
     return {
       ...carDto,
-      session,
-      sessionId: session.sessionId,
+      sessionId,
       guid: carDto.Driver.Guid,
     };
   }

@@ -1,7 +1,7 @@
 import { Entity, Column, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
 import { AC1Car } from './AC1Car';
 
-@Entity({ name: 'ac1_event' })
+@Entity({ name: 'ac1_driver' })
 export class AC1Driver {
   @PrimaryColumn({ name: 'guid' })
   Guid: string;
@@ -10,10 +10,10 @@ export class AC1Driver {
   })
   @JoinColumn({ name: 'session_index' })
   cars?: AC1Car[];
-  @Column()
+  @Column({ name: 'name' })
   Name: string;
-  @Column()
+  @Column({ name: 'nation' })
   Nation: string; //'COL, ITA, PLA
-  @Column()
+  @Column({ name: 'team' })
   Team: string;
 }

@@ -14,11 +14,9 @@ export class AC1Result {
   BallastKG: number;
   @Column({ name: 'best_lap' })
   BestLap: number;
-  @Column({ name: 'car_model' })
   CarModel: string;
   @Column({ name: 'driver_guid' })
   DriverGuid: string;
-  @Column({ name: 'driver_name' })
   DriverName: string;
   @Column({ name: 'restrictor' })
   Restrictor: number;

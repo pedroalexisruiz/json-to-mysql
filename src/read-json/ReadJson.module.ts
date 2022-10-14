@@ -50,7 +50,6 @@ import { SessionService } from './services/session.service';
           entities: [Session, SessionResult, Lap, Driver, Car, LeaderBoardLine],
           synchronize: false,
           name: 'assetoCorsaConnection',
-          logging: true
         });
         return dataSource.initialize();
       },

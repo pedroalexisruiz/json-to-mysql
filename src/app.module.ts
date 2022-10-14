@@ -28,7 +28,6 @@ import { ReadJsonModule } from './read-json/ReadJson.module';
         ...AC1_ENTITIES,
       ],
       synchronize: false,
-      logging: true
     }),
     ReadJsonModule,
   ],

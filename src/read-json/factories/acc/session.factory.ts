@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { SessionDto } from '../dtos/Session';
-import { Session } from '../model/Session';
+import { SessionDto } from '../../dtos/Session';
+import { Session } from 'src/read-json/model/acc';
 
 @Injectable()
 export class SessionFactory {

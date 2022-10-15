@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { SessionResultDto } from '../dtos/SessionResult';
-import { Session } from '../model/Session';
-import { SessionResult } from '../model/SessionResult';
+import { SessionResultDto } from '../../dtos/SessionResult';
+import { Session, SessionResult } from 'src/read-json/model/acc';
 import { LeaderBoardLineFactory } from './leaderBoardLine.factory';
 
 @Injectable()

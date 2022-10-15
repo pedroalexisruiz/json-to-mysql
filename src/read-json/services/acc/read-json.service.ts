@@ -1,15 +1,19 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { SessionDto } from '../dtos/Session';
-import { LapFactory } from '../factories/lap.factory';
-import { LeaderBoardLineFactory } from '../factories/leaderBoardLine.factory';
-import { SessionResultFactory } from '../factories/session-result.factory';
-import { SessionFactory } from '../factories/session.factory';
-import { Car } from '../model/Car';
-import { Driver } from '../model/Driver';
-import { LeaderBoardLine } from '../model/LeaderBoardLine';
-import { Session } from '../model/Session';
-import { SessionResult } from '../model/SessionResult';
+import { SessionDto } from '../../dtos/Session';
+import {
+  LapFactory,
+  LeaderBoardLineFactory,
+  SessionResultFactory,
+  SessionFactory,
+} from '../../factories/acc';
+import {
+  Car,
+  Driver,
+  LeaderBoardLine,
+  Session,
+  SessionResult,
+} from 'src/read-json/model/acc';
 import { CarService } from './car.service';
 import { DriverService } from './driver.service';
 import { LapService } from './lap.service';

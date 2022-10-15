@@ -1,8 +1,8 @@
 import { Controller } from '@nestjs/common';
-import { ReadJsonService } from 'src/read-json/services/read-json.service';
+import { ReadJsonService } from 'src/read-json/services/acc';
 
 @Controller()
-export class ReadJsonController {
+export class ACCReadJsonController {
   constructor(private readonly readJsonService: ReadJsonService) {
     this.listen();
   }

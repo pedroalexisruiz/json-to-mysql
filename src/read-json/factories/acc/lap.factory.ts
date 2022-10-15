@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { LapDto } from '../dtos/Lap';
-import { Lap } from '../model/Lap';
-import { Session } from '../model/Session';
+import { LapDto } from '../../dtos/Lap';
+import { Lap, Session } from 'src/read-json/model/acc';
 
 @Injectable()
 export class LapFactory {

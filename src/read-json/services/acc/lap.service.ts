@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Lap } from 'src/read-json/model/Lap';
+import { Lap } from 'src/read-json/model/acc';
 import { Repository } from 'typeorm';
 
 @Injectable()

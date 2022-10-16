@@ -1,0 +1,236 @@
+{
+  "Setting": "Multiplayer",
+  "ServerName": "Nitro Server 01",
+  "ClientFuelVisible": "2",
+  "PlayerFile": "player",
+  "DateTime": "1656811370",
+  "TimeString": "2022/07/02 20:22:50",
+  "Mod": "IndyDallara165",
+  "Season": "",
+  "TrackVenue": "Indianapolis Speedway 2020",
+  "TrackCourse": "Indianapolis -- Oval",
+  "TrackEvent": "Indianapolis -- Oval",
+  "TrackData": "C:\\NSC\\SERVIDORES\\ServerRF2\\rfactor2-dedicated\\Installed\\Locations\\Indianapolis_2020\\1.18\\layout500.mas",
+  "TrackLength": "4057.9",
+  "GameVersion": "1.1128",
+  "Dedicated": "1",
+  "ConnectionType": { "_": "Custom", "upload": "1500", "download": "1500" },
+  "RaceLaps": "0",
+  "RaceTime": "30",
+  "MechFailRate": "1",
+  "DamageMult": "50",
+  "FuelMult": "1",
+  "TireMult": "1",
+  "VehiclesAllowed": "|IndyCar_2021",
+  "ParcFerme": "3",
+  "FixedSetups": "1",
+  "FreeSettings": "11",
+  "FixedUpgrades": "1",
+  "Qualify": {
+    "DateTime": "1656814178",
+    "TimeString": "2022/07/02 21:09:38",
+    "Laps": "12",
+    "Minutes": "15",
+    "Stream": {},
+    "MostLapsCompleted": "12",
+    "Driver": []
+  },
+  "Practice1": {
+    "DateTime": "1656892798",
+    "TimeString": "2022/07/03 18:59:58",
+    "Laps": "2147483647",
+    "Minutes": "6",
+    "Stream": {},
+    "MostLapsCompleted": "0"
+  },
+  "Race": {
+    "DateTime": "1656812758",
+    "TimeString": "2022/07/02 20:45:58",
+    "Laps": "2147483647",
+    "Minutes": "30",
+    "Stream": {
+      "Score": [
+        {
+          "_": "Alejandro Guarin(4) lap=0 point=1 t=-1.000 et=68.264",
+          "$": { "et": "68.3" }
+        },
+        {
+          "_": "Miguel Olivares(3) lap=0 point=1 t=-1.000 et=68.373",
+          "$": { "et": "68.4" }
+        },
+        {
+          "_": "Jose Martinez(0) lap=0 point=1 t=-1.000 et=68.658",
+          "$": { "et": "68.7" }
+        },
+        {
+          "_": "Your Name(7) lap=0 point=1 t=-1.000 et=69.158",
+          "$": { "et": "69.2" }
+        }
+      ],
+      "Sector": [
+        {
+          "_": "Alejandro Guarin(4) set new best for sector 2",
+          "$": { "et": "251.2" }
+        },
+        {
+          "_": "Alejandro Guarin(4) set new best for sector 2",
+          "$": { "et": "251.2" }
+        },
+        {
+          "_": "Your Name(7) set new best for sector 2",
+          "$": { "et": "251.3" }
+        },
+        {
+          "_": "Miguel Olivares(3) set new best for sector 2",
+          "$": { "et": "251.3" }
+        }
+      ],
+      "Penalty": [
+        {
+          "_": "Alejandro Guarin received Stop/Go penalty, 10s, 0laps for \"Illegally Passed Before Green\". Result: penalties=1, 1st=Stop/Go,10s",
+          "$": { "et": "235.3" }
+        },
+        {
+          "_": "Alejandro Guarin served 1st Stop/Go penalty, result: penalties=0, 1st=Stop/Go,10s",
+          "$": { "et": "405.1" }
+        },
+        {
+          "_": "Alejandro Guarin received Stop/Go penalty, 10s, 0laps for \"Illegally Passed Before Pit Entrance\". Result: penalties=1, 1st=Stop/Go,10s",
+          "$": { "et": "971.7" }
+        },
+        {
+          "_": "Alejandro Guarin received Drive Thru penalty, 0s, 0laps for \"Pitted On Closed Pitlane\". Result: penalties=1, 1st=Drive Thru,10s",
+          "$": { "et": "1009.7" }
+        }
+      ],
+      "Incident": [
+        {
+          "_": "Your Name(8) reported contact (28.13) with Sign",
+          "$": { "et": "369.2" }
+        },
+        {
+          "_": "Alejandro Guarin(4) reported contact (28.17) with Sign",
+          "$": { "et": "369.2" }
+        },
+        {
+          "_": "Jose Martinez(9) reported contact (28.01) with Sign",
+          "$": { "et": "369.2" }
+        },
+        {
+          "_": "Your Name(8) reported contact (67.66) with Sign",
+          "$": { "et": "369.2" }
+        }
+      ]
+    },
+    "FormationAndStart": "2",
+    "MostLapsCompleted": "12",
+    "Driver": [
+      {
+        "Name": "Your Name",
+        "SteamID": "90071996842377218",
+        "Connected": "1",
+        "VehFile": "5_MCLARENDC53E90.VEH",
+        "UpgradeCode": "8c060000 00000000 00000000 00000000",
+        "VehName": "Dallara IR18 #5",
+        "Category": "IndyCar, Dallara IR18",
+        "CarType": "Dallara IR18",
+        "CarClass": "Dallara IR18",
+        "CarNumber": "#5",
+        "TeamName": "Arrow McLaren SP",
+        "isPlayer": "0",
+        "ServerScored": "1",
+        "GridPos": "1",
+        "Position": "2",
+        "ClassGridPos": "1",
+        "ClassPosition": "2",
+        "Points": "40",
+        "ClassPoints": "40",
+        "LapRankIncludingDiscos": "1",
+        "Lap": [
+          {
+            "_": "47.3956",
+            "num": "1",
+            "p": "2",
+            "et": "236.5066",
+            "s1": "14.1779",
+            "s2": "18.1813",
+            "s3": "15.0363",
+            "fuel": "0.596",
+            "twfl": "1.000",
+            "twfr": "0.996",
+            "twrl": "0.996",
+            "twrr": "0.992",
+            "fcompound": "0,Firehawk Speedway",
+            "rcompound": "0,Firehawk Speedway"
+          }
+        ],
+        "BestLapTime": "42.1327",
+        "Laps": "10",
+        "Pitstops": "0",
+        "FinishStatus": "DNF",
+        "DNFReason": "Suspension",
+        "ControlAndAids": {
+          "_": "PlayerControl",
+          "$": { "startLap": "1", "endLap": "10" }
+        }
+      },
+      {
+        "Name": "Alejandro Guarin",
+        "SteamID": "90071996842377219",
+        "Connected": "1",
+        "VehFile": "30_RAHAL46ED468A.VEH",
+        "UpgradeCode": "8f060000 00000000 00000000 00000000",
+        "VehName": "Dallara IR18 #30",
+        "Category": "IndyCar, Dallara IR18",
+        "CarType": "Dallara IR18",
+        "CarClass": "Dallara IR18",
+        "CarNumber": "#30",
+        "TeamName": "Rahal Letterman Lanigan",
+        "isPlayer": "0",
+        "ServerScored": "1",
+        "GridPos": "3",
+        "Position": "1",
+        "ClassGridPos": "3",
+        "ClassPosition": "1",
+        "Points": "50",
+        "ClassPoints": "50",
+        "LapRankIncludingDiscos": "2",
+        "Lap": [],
+        "BestLapTime": "43.7303",
+        "Laps": "12",
+        "Pitstops": "4",
+        "FinishStatus": "DNF",
+        "DNFReason": "DNF",
+        "ControlAndAids": {}
+      },
+      {
+        "Name": "Jose Martinez",
+        "SteamID": "76561199080210975",
+        "Connected": "1",
+        "VehFile": "23_DREYERCE529CB6.VEH",
+        "UpgradeCode": "8f060000 00000000 00000000 00000000",
+        "VehName": "Dallara IR18 #23",
+        "Category": "IndyCar, Dallara IR18",
+        "CarType": "Dallara IR18",
+        "CarClass": "Dallara IR18",
+        "CarNumber": "#23",
+        "TeamName": "Dreyer & Reinbold",
+        "isPlayer": "1",
+        "ServerScored": "1",
+        "GridPos": "2",
+        "Position": "3",
+        "ClassGridPos": "2",
+        "ClassPosition": "3",
+        "Points": "0",
+        "ClassPoints": "0",
+        "LapRankIncludingDiscos": "3",
+        "Lap": [],
+        "BestLapTime": "42.4668",
+        "Laps": "11",
+        "Pitstops": "1",
+        "FinishStatus": "DQ",
+        "ControlAndAids": {}
+      }
+    ]
+  }
+}

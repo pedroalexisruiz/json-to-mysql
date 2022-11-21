@@ -7,7 +7,7 @@ export class RF2DriverEntity {
   @Column({ name: 'name' })
   Name: string;
   @PrimaryColumn({ name: 'steam_id' })
-  SteamID: number;
+  SteamID: string;
 
   @OneToMany(() => RF2CarEntity, (car) => car.driver, {
     cascade: false,

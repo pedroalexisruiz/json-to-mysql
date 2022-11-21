@@ -32,7 +32,7 @@ export class RF2LapEntity {
   num: number;
   @Column({ name: 'time' })
   _: number;
-  @Column()
+  @Column({ name: 'position' })
   p: number;
   @Column({ name: 'date' })
   et: Date;

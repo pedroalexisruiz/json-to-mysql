@@ -45,7 +45,7 @@ export class RF2CarEntity {
   @Column({ name: 'team_name' })
   TeamName: string;
   @Column({ name: 'is_player' })
-  isPlayer: number;
+  isPlayer: boolean;
   @Column({ name: 'grid_pos' })
   GridPos: number;
   @Column({ name: 'position' })

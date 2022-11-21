@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { castIntFloat } from '../util';
+import { castIntFloat, findFastestLap, sortResults } from '../util';
 const chokidar = require('chokidar');
 const EventEmitter = require('events').EventEmitter;
 const fsExtra = require('fs-extra');
@@ -44,6 +44,11 @@ export class RaceReaderService extends EventEmitter {
             const driver = drivers ? drivers[0] : {};
             const streamRow = stream ? stream : {};
             const { Score, Penalty, Sector, Incident } = streamRow;
+            //console.log("driver", driver);
+            const fastestLap = findFastestLap(drivers);
+            const sortedResults = sortResults(drivers);
+            console.log("sessionData", sessionData);
+            console.log("fastestLap", fastestLap);
             //console.log('RaceResults', RaceResults);
             // console.log('Score', Score);
             // console.log('Penalty', Penalty);

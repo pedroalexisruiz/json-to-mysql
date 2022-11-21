@@ -1,6 +1,6 @@
-import { RF2Lap } from './RF2Lap';
+import { RF2LapDTO } from './RF2Lap';
 
-export interface RF2Driver {
+export interface RF2DriverDTO {
   Name: string;
   SteamID: number;
   Connected: number;
@@ -21,11 +21,12 @@ export interface RF2Driver {
   Points: number;
   ClassPoints: number;
   LapRankIncludingDiscos: number;
-  Lap: RF2Lap[];
+  Lap: RF2LapDTO[];
   BestLapTime: number;
   Laps: number;
   Pitstops: number;
   FinishStatus: string;
+  FinishTime?:number;
   DNFReason?: string;
   ControlAndAids: RF2ControlAndAid; // indica desde que vuelta un piloto humano tomó el control, no necesario en BD
 }

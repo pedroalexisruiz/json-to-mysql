@@ -1,4 +1,4 @@
-import { RF2Driver } from './RF2Driver';
+import { RF2DriverDTO } from './RF2Driver';
 import { RF2Stream } from './RF2Stream';
 
 export interface RF2SessionConfigDTO {
@@ -40,7 +40,7 @@ export interface RF2Session {
   Laps: number;
   Minutes: number;
   Stream: RF2Stream;
-  Driver?: RF2Driver[];
+  Driver?: RF2DriverDTO[];
   MostLapsCompleted: number;
   FormationAndStart?: number;
 }

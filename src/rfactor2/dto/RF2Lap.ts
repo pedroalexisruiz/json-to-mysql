@@ -1,4 +1,4 @@
-export interface RF2Lap {
+export interface RF2LapDTO {
   _: number;
   num: number;
   p: number;

@@ -20,6 +20,6 @@ export class RF2IncidentEntity {
   session?: RF2SessionEntity;
   @Column({ name: 'description' })
   description: string;
-  @Column({ name: 'date' })
-  et: Date;
+  @Column({ name: 'time' })
+  time: string;
 }

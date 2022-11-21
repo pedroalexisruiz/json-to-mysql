@@ -31,11 +31,11 @@ export class RF2LapEntity {
   @PrimaryColumn()
   num: number;
   @Column({ name: 'time' })
-  _: number;
+  _: string;
   @Column({ name: 'position' })
   p: number;
-  @Column({ name: 'date' })
-  et: Date;
+  @Column({ name: 'date_time' })
+  et: string;
   @Column()
   s1: number;
   @Column()

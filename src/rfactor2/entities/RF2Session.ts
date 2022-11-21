@@ -11,9 +11,10 @@ export class RF2SessionEntity {
   // qualy, practice or race
   @Column({ name: 'session_type' })
   sessionType: string;
-  // sacarlo del track course
-  @Column({ name: 'track_name' })
-  trackName: string;
+  @Column({ name: 'track_venue' })
+  trackVenue: string;
+  @Column({ name: 'track_event' })
+  trackEvent: string;
   @Column({ name: 'date_time' })
   DateTime: Date;
   @Column({ name: 'time_string' })
@@ -26,8 +27,10 @@ export class RF2SessionEntity {
   @Column({ name: 'minutes' })
   Minutes: number;
   // en DTO es Stream, filtrar solo los incidentes
-  @OneToMany(() => RF2IncidentEntity, (incident) => incident.session)
-  incidents: RF2IncidentEntity[];
+  @OneToMany(() => RF2IncidentEntity, (incident) => incident.session, {
+    cascade: false,
+  })
+  incidents?: RF2IncidentEntity[];
   // en dto es Driver
   @OneToMany(() => RF2CarEntity, (car) => car.session, {
     cascade: false,

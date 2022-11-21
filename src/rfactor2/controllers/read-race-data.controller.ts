@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { RaceReaderService } from '../services/ac1session-reader.service';
+import { RaceReaderService } from '../services/race-reader.service';
 
 @Controller()
 export class RaceDataController {

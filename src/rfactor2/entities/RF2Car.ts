@@ -21,7 +21,7 @@ export class RF2CarEntity {
   @JoinColumn({ name: 'session_id' })
   session?: RF2SessionEntity;
   @PrimaryColumn({ name: 'steam_id' })
-  steamId: string;
+  SteamID: string;
   @ManyToOne(() => RF2DriverEntity, (driver) => driver.cars, {
     cascade: true,
   })
@@ -41,7 +41,7 @@ export class RF2CarEntity {
   @Column({ name: 'car_class' })
   CarClass: string;
   @Column({ name: 'car_number' })
-  CarNumber: string;
+  CarNumber: number;
   @Column({ name: 'team_name' })
   TeamName: string;
   @Column({ name: 'is_player' })
@@ -65,6 +65,8 @@ export class RF2CarEntity {
   laps: RF2LapEntity[];
   @Column({ name: 'best_lap_time' })
   BestLapTime: number;
+  @Column({ name: 'formatted_best_lap_time' })
+  formattedBestLapTime?: string;
   // is Laps in DTO
   @Column({ name: 'count_laps' })
   countLaps: number;
@@ -76,4 +78,6 @@ export class RF2CarEntity {
   FinishTime?: number;
   @Column({ name: 'dnf_reason' })
   DNFReason?: string;
+  @Column({ name: 'gap_to_first' })
+  gapToFirst?: string;
 }

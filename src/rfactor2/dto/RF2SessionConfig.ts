@@ -1,5 +1,4 @@
-import { RF2DriverDTO } from './RF2Driver';
-import { RF2Stream } from './RF2Stream';
+import { RF2SessionDTO } from './RF2SessionDTO';
 
 export interface RF2SessionConfigDTO {
   Setting: string;
@@ -29,20 +28,9 @@ export interface RF2SessionConfigDTO {
   FixedSetups: number;
   FreeSettings: number;
   FixedUpgrades: number;
-  Qualify?: RF2Session;
-  Practice1?: RF2Session;
-  Race?: RF2Session;
-}
-
-export interface RF2Session {
-  DateTime: number;
-  TimeString: string;
-  Laps: number;
-  Minutes: number;
-  Stream: RF2Stream;
-  Driver?: RF2DriverDTO[];
-  MostLapsCompleted: number;
-  FormationAndStart?: number;
+  Qualify?: RF2SessionDTO;
+  Practice1?: RF2SessionDTO;
+  Race?: RF2SessionDTO;
 }
 
 export interface ConnectionType {

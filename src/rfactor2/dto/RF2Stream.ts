@@ -1,3 +1,5 @@
+import { RF2IncidentDTO } from './RF2IncidentDTO';
+
 export interface RF2Stream {
   Score: RF2IncidentDTO[];
   Sector: RF2IncidentDTO[];
@@ -5,9 +7,4 @@ export interface RF2Stream {
   Incident: RF2IncidentDTO[];
   Sent: RF2IncidentDTO[];
   Chat: RF2IncidentDTO;
-}
-
-export interface RF2IncidentDTO {
-  _: string;
-  et: number;
 }

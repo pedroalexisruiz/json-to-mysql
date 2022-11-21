@@ -4,7 +4,8 @@ import { BASIC_DB_CONFIG } from 'src/config/db';
 import { DataSource } from 'typeorm';
 import { RaceDataController } from './controllers/read-race-data.controller';
 import { RF2_ENTITIES } from './entities';
-import { RaceReaderService } from './services/ac1session-reader.service';
+import { RF2_FACTORIES } from './factories';
+import { RaceReaderService } from './services/race-reader.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([...RF2_ENTITIES])],
@@ -20,6 +21,7 @@ import { RaceReaderService } from './services/ac1session-reader.service';
         return dataSource.initialize();
       },
     },
+    ...RF2_FACTORIES,
     RaceReaderService,
   ],
 })

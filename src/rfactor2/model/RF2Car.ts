@@ -6,7 +6,7 @@ import { RF2Session } from './RF2Session';
 export class RF2Car {
   sessionId: number;
   session?: RF2Session;
-  steamId: string;
+  SteamID: string;
   driver?: RF2Driver;
   // car attrs
   VehFile: string;
@@ -15,7 +15,7 @@ export class RF2Car {
   Category: string;
   CarType: string;
   CarClass: string;
-  CarNumber: string;
+  CarNumber: number;
   TeamName: string;
   isPlayer: number;
   GridPos: number;
@@ -28,42 +28,12 @@ export class RF2Car {
   // is Lap in DTO
   laps: RF2LapDTO[];
   BestLapTime: number;
+  formattedBestLapTime?: string;
   // is Laps in DTO
   countLaps: number;
   Pitstops: number;
   FinishStatus: string;
   FinishTime?: number;
   DNFReason?: string;
-
-  formatGap(time: number, leadersTime: string, includeHours: boolean = false) {
-    const gapToLeader = time - parseFloat(leadersTime);
-    return formatTime(gapToLeader.toFixed(3), includeHours);
-  }
-
-  getGapToFrist(
-    sessionType: string,
-    sessionLapCount: number,
-    leaderBestLapTime: string,
-    leaderFinishTime: string,
-  ) {
-    if (this.Position !== 1) {
-      if (sessionType === 'race' && this.FinishTime) {
-        const lapsDown = sessionLapCount - this.countLaps;
-
-        if (lapsDown === 0) {
-          return this.formatGap(this.FinishTime, leaderFinishTime, true);
-        }
-
-        if (lapsDown > 0) {
-          return `-${lapsDown}L`;
-        }
-      }
-
-      if (sessionType === 'qualifying' && this.BestLapTime) {
-        return this.formatGap(this.BestLapTime, leaderBestLapTime);
-      }
-    } else {
-      return 0;
-    }
-  }
+  gapToFirst?: string;
 }

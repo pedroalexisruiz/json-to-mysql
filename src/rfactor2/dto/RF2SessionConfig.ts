@@ -1,7 +1,7 @@
 import { RF2Driver } from './RF2Driver';
 import { RF2Stream } from './RF2Stream';
 
-export interface RF2SessionConfig {
+export interface RF2SessionConfigDTO {
   Setting: string;
   ServerName: string;
   ClientFuelVisible: number;
@@ -40,8 +40,8 @@ export interface RF2Session {
   Laps: number;
   Minutes: number;
   Stream: RF2Stream;
-  MostLapsCompleted: number;
   Driver?: RF2Driver[];
+  MostLapsCompleted: number;
   FormationAndStart?: number;
 }
 

@@ -1,11 +1,13 @@
 export interface RF2Stream {
-  Score: RF2Incident[];
-  Sector: RF2Incident[];
-  Penalty: RF2Incident[];
-  Incident: RF2Incident[];
+  Score: RF2IncidentDTO[];
+  Sector: RF2IncidentDTO[];
+  Penalty: RF2IncidentDTO[];
+  Incident: RF2IncidentDTO[];
+  Sent: RF2IncidentDTO[];
+  Chat: RF2IncidentDTO;
 }
 
-export interface RF2Incident {
+export interface RF2IncidentDTO {
   _: string;
   et: number;
 }

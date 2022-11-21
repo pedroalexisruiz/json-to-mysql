@@ -5,7 +5,7 @@ export interface RF2Lap {
   et: number;
   s1: number;
   s2: number;
-  s3: number;
+  s3?: number;
   fuel: number;
   twfl: number;
   twfr: number;
@@ -13,4 +13,5 @@ export interface RF2Lap {
   twrr: number;
   fcompound: string;
   rcompound: string;
+  pit?: number;
 }

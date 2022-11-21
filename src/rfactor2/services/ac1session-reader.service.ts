@@ -44,7 +44,7 @@ export class RaceReaderService extends EventEmitter {
             const driver = drivers ? drivers[0] : {};
             const streamRow = stream ? stream : {};
             const { Score, Penalty, Sector, Incident } = streamRow;
-            console.log('RaceResults', RaceResults);
+            //console.log('RaceResults', RaceResults);
             // console.log('Score', Score);
             // console.log('Penalty', Penalty);
             // console.log('Sector', Sector);

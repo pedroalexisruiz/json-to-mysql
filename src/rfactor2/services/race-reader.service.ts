@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { RF2DriverDTO } from '../dto/RF2Driver';
+import { RF2IncidentDTO } from '../dto/RF2IncidentDTO';
 import { RF2SessionConfigDTO } from '../dto/RF2SessionConfig';
 import { RF2Stream } from '../dto/RF2Stream';
 import { RF2IncidentEntity, RF2SessionEntity } from '../entities';
@@ -33,6 +34,7 @@ export class RaceReaderService extends EventEmitter {
     private rF2SessionFactory: RF2SessionFactory,
     private incidentFactory: RF2IncidentFactory,
     private carFactory: RF2CarFactory,
+    @Inject('DATA_SOURCE') private datasource: DataSource,
   ) {
     super();
   }
@@ -55,14 +57,24 @@ export class RaceReaderService extends EventEmitter {
             const { rFactorXML } = result;
             const sessionConfig: RF2SessionConfigDTO = rFactorXML.RaceResults;
             this.processSession(sessionConfig, fileName);
-
-            console.log('Done');
+            this.executeQueries();
           });
-          //this.generateReport(fileName, fileContent);
         }
       });
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  executeQueries() {
+    try {
+      // this.datasource.query(
+      //   "INSERT INTO `driver` (`player_id`, `first_name`, `last_name`, `short_name`) VALUES ('123', 'Pedro', 'Ruiz', 'Pedroru');",
+      // );
+    } catch (error) {
+      console.log(
+        'La query que est{as intentando ejecutar genera un erroe en BD',
+      );
     }
   }
 
@@ -85,25 +97,26 @@ export class RaceReaderService extends EventEmitter {
         const sessionSaved: RF2SessionEntity = await this.sessionService.save(
           session,
         );
-        const cars = this.carFactory.bulkDTOToModel(
-          sortedResults,
-          sessionSaved,
-          sortResults[0],
-        );
-        await this.carService.saveAll(cars);
-        const penalties: RF2IncidentEntity[] = stream.Penalty
-          ? this.incidentFactory.bulkDTOToModel(
-              stream.Penalty,
-              sessionSaved.sessionId,
-            )
-          : [];
-        if (penalties.length) {
-          await this.incidentService.saveAll(penalties);
-        }
+        this.processCars(sessionSaved, sortedResults);
+        await this.processPenalties(sessionSaved.sessionId, stream.Penalty);
       } catch (error) {
         console.log('error', error);
         console.log(`El archivo ${fileName} tiene un formato incorrecto`);
       }
+    }
+  }
+
+  async processCars(session: RF2SessionEntity, drivers: RF2DriverDTO[]) {
+    const cars = this.carFactory.bulkDTOToModel(drivers, session, drivers[0]);
+    await this.carService.saveAll(cars);
+  }
+
+  async processPenalties(sessionId: number, penalties: RF2IncidentDTO[]) {
+    const penaltyEntities: RF2IncidentEntity[] = penalties
+      ? this.incidentFactory.bulkDTOToModel(penalties, sessionId)
+      : [];
+    if (penaltyEntities.length) {
+      await this.incidentService.saveAll(penaltyEntities);
     }
   }
 }

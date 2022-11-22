@@ -16,7 +16,7 @@ export class RF2SessionEntity {
   @Column({ name: 'track_event' })
   trackEvent: string;
   @Column({ name: 'date_time' })
-  DateTime: Date;
+  DateTime: string;
   @Column({ name: 'time_string' })
   TimeString: string;
   // en dto es Laps

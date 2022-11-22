@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RF2SessionConfigDTO } from '../dto/RF2SessionConfig';
 import { RF2SessionEntity } from '../entities';
-import { findFastestLap, getSessionType } from '../util';
+import { findFastestLap, formatTime, getSessionType } from '../util';
 
 @Injectable()
 export class RF2SessionFactory {
@@ -24,7 +24,7 @@ export class RF2SessionFactory {
       trackVenue: TrackVenue,
       countLaps,
       fastestLap,
-      DateTime: new Date(DateTime),
+      DateTime: formatTime(DateTime),
       ...rest,
     };
   }

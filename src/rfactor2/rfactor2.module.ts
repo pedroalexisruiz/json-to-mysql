@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm';
 import { RaceDataController } from './controllers/read-race-data.controller';
 import { RF2_ENTITIES } from './entities';
 import { RF2_FACTORIES } from './factories';
+import { RF2_SERVICES } from './services';
 import { RaceReaderService } from './services/race-reader.service';
 
 @Module({
@@ -22,6 +23,7 @@ import { RaceReaderService } from './services/race-reader.service';
       },
     },
     ...RF2_FACTORIES,
+    ...RF2_SERVICES,
     RaceReaderService,
   ],
 })

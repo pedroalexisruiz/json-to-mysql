@@ -1,6 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
+import { RF2DriverDTO } from '../dto/RF2Driver';
+import { RF2SessionConfigDTO } from '../dto/RF2SessionConfig';
+import { RF2Stream } from '../dto/RF2Stream';
+import { RF2SessionEntity } from '../entities';
+import {
+  RF2CarFactory,
+  RF2IncidentFactory,
+  RF2SessionFactory,
+} from '../factories';
 import { castIntFloat, findFastestLap, sortResults } from '../util';
+import { RF2CarService } from './rf2car.service';
+import { RF2IncidentService } from './rf2incident.service';
+import { RF2SessionService } from './rf2session.service';
 const chokidar = require('chokidar');
 const EventEmitter = require('events').EventEmitter;
 const fsExtra = require('fs-extra');
@@ -14,7 +26,14 @@ export class RaceReaderService extends EventEmitter {
     valueProcessors: [castIntFloat],
     attrValueProcessors: [castIntFloat],
   });
-  constructor() {
+  constructor(
+    private sessionService: RF2SessionService,
+    private incidentService: RF2IncidentService,
+    private carService: RF2CarService,
+    private rF2SessionFactory: RF2SessionFactory,
+    private incidentFactory: RF2IncidentFactory,
+    private carFactory: RF2CarFactory,
+  ) {
     super();
   }
   watchFolder(folder) {
@@ -32,28 +51,11 @@ export class RaceReaderService extends EventEmitter {
         // Read content of new file
         const fileContent = await fsExtra.readFile(filePath, 'utf-8');
         if (fileContent) {
-          this.parser.parseString(fileContent, function (err, result) {
-            const {
-              rFactorXML: { RaceResults },
-            } = result;
-            const { Practice1, Qualify, Race } = RaceResults;
-            const sessionData = Practice1 || Qualify || Race;
-            const data = sessionData;
-            const stream = data.Stream;
-            const drivers = data.Driver;
-            const driver = drivers ? drivers[0] : {};
-            const streamRow = stream ? stream : {};
-            const { Score, Penalty, Sector, Incident } = streamRow;
-            //console.log("driver", driver);
-            const fastestLap = findFastestLap(drivers);
-            const sortedResults = sortResults(drivers);
-            console.log("sessionData", sessionData);
-            console.log("fastestLap", fastestLap);
-            //console.log('RaceResults', RaceResults);
-            // console.log('Score', Score);
-            // console.log('Penalty', Penalty);
-            // console.log('Sector', Sector);
-            // console.log('Incident', Incident);
+          this.parser.parseString(fileContent, (err, result) => {
+            const { rFactorXML } = result;
+            const sessionConfig: RF2SessionConfigDTO = rFactorXML.RaceResults;
+            this.processSession(sessionConfig, fileName);
+
             console.log('Done');
           });
           //this.generateReport(fileName, fileContent);
@@ -61,6 +63,42 @@ export class RaceReaderService extends EventEmitter {
       });
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async processSession(sessionConfig: RF2SessionConfigDTO, fileName: string) {
+    let session: RF2SessionEntity = await this.sessionService.findOne(fileName);
+
+    if (!session) {
+      const { Practice1, Qualify, Race } = sessionConfig;
+      const sessionData = Practice1 || Qualify || Race;
+      try {
+        const stream: RF2Stream = sessionData.Stream;
+        const drivers: RF2DriverDTO[] = sessionData.Driver;
+        const fastestLap: number = findFastestLap(drivers);
+        const sortedResults: RF2DriverDTO[] = sortResults(drivers);
+        session = this.rF2SessionFactory.parseDTOtoModel(
+          sessionConfig,
+          fileName,
+        );
+        session.fastestLap = fastestLap;
+        const sessionSaved: RF2SessionEntity = await this.sessionService.save(
+          session,
+        );
+        const cars = this.carFactory.bulkDTOToModel(
+          sortedResults,
+          sessionSaved,
+          sortResults[0],
+        );
+        const carsSaved = await this.carService.saveAll(cars);
+
+        //guardar vueltas con los ids de carro
+
+        //guardar solo penalizaciones
+      } catch (error) {
+        console.log('error', error);
+        console.log(`El archivo ${fileName} tiene un formato incorrecto`);
+      }
     }
   }
 }

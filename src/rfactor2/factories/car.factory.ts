@@ -39,7 +39,7 @@ export class RF2CarFactory {
       ...car,
       SteamID: steamID,
       sessionId: session.sessionId,
-      CarNumber: parseInt(CarNumber),
+      CarNumber: parseInt(CarNumber.substring(1)),
       countLaps,
       isPlayer: Boolean(isPlayer),
       gapToFirst,

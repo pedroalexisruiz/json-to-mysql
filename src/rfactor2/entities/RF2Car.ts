@@ -62,7 +62,7 @@ export class RF2CarEntity {
   LapRankIncludingDiscos: number;
   // is Lap in DTO
   @OneToMany(() => RF2LapEntity, (lap) => lap.car)
-  laps: RF2LapEntity[];
+  laps?: RF2LapEntity[];
   @Column({ name: 'best_lap_time' })
   BestLapTime: number;
   @Column({ name: 'formatted_best_lap_time' })

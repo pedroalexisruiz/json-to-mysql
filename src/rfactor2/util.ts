@@ -18,7 +18,7 @@ export const getSessionType = (session: RF2SessionConfigDTO) => {
   return 'practice';
 };
 
-export const findFastestLap = (drivers) => {
+export const findFastestLap = (drivers: RF2DriverDTO[]): number => {
   const sorted = drivers.sort(
     (a, b) =>
       a.BestLapTime &&
@@ -28,7 +28,7 @@ export const findFastestLap = (drivers) => {
   return sorted[0].BestLapTime;
 };
 
-export const sortResults = (drivers) => {
+export const sortResults = (drivers: RF2DriverDTO[]): RF2DriverDTO[] => {
   const sortedResults = drivers.sort((a, b) =>
     a.Position > b.Position ? 1 : -1,
   );

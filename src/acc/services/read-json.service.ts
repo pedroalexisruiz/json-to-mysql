@@ -72,22 +72,27 @@ export class ReadJsonService extends EventEmitter {
       } catch (error) {
         console.log(`El archivo ${fileName} tiene un formato incorrecto`);
       }
-      // Aqui ejecutas cualquier query
-      try {
-        // this.datasource.query(
-        //   "INSERT INTO `driver` (`player_id`, `first_name`, `last_name`, `short_name`) VALUES ('123', 'Pedro', 'Ruiz', 'Pedroru');",
-        // );
-      } catch (error) {
-        console.log(
-          'La query que est{as intentando ejecutar genera un erroe en BD',
-        );
-      }
+      this.executeQueries();
 
       this.emit('file-added', {
         message: fileContent.toString(),
       });
     }
   }
+
+  executeQueries() {
+    // Aqui ejecutas las queries
+    try {
+      // this.datasource.query(
+      //   "INSERT INTO `driver` (`player_id`, `first_name`, `last_name`, `short_name`) VALUES ('123', 'Pedro', 'Ruiz', 'Pedroru');",
+      // );
+    } catch (error) {
+      console.log(
+        'La query que est{as intentando ejecutar genera un erroe en BD',
+      );
+    }
+  }
+
   async saveSessionReport(
     sessionDto: SessionDto,
     fileName: string,

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RF2DriverDTO } from '../dto/RF2Driver';
-import { RF2CarEntity, RF2SessionEntity } from '../entities';
+import { RF2LapDTO } from '../dto/RF2Lap';
+import { RF2CarEntity, RF2LapEntity, RF2SessionEntity } from '../entities';
 import { formatTime, getGapToFrist } from '../util';
 import { RF2DriverFactory } from './driver.factory';
 import { RF2LapFactory } from './lap.factory';
@@ -35,25 +36,35 @@ export class RF2CarFactory {
       Position,
     );
     const steamID = SteamID.toString();
-    
     return {
       ...car,
       SteamID: steamID,
       sessionId: session.sessionId,
-      CarNumber: parseInt(CarNumber.substring(1)),
+      CarNumber,
       countLaps,
       isPlayer: Boolean(isPlayer),
       gapToFirst,
       driver,
       formattedBestLapTime: formatTime(car.BestLapTime),
-      laps: laps.map((lap) =>
-        this.lapFactory.parseDTOtoModel(
-          lap,
-          session.sessionId,
-          steamID,
-          VehFile,
-        ),
-      ),
+      laps: laps
+        ? Array.isArray(laps)
+          ? laps.map((lap) =>
+              this.lapFactory.parseDTOtoModel(
+                lap,
+                session.sessionId,
+                steamID,
+                VehFile,
+              ),
+            )
+          : [
+              this.lapFactory.parseDTOtoModel(
+                laps as RF2LapDTO,
+                session.sessionId,
+                steamID,
+                VehFile,
+              ),
+            ]
+        : [],
     };
   }
 

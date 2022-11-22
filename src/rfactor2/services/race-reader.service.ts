@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 import { RF2DriverDTO } from '../dto/RF2Driver';
 import { RF2SessionConfigDTO } from '../dto/RF2SessionConfig';
 import { RF2Stream } from '../dto/RF2Stream';
-import { RF2SessionEntity } from '../entities';
+import { RF2IncidentEntity, RF2SessionEntity } from '../entities';
 import {
   RF2CarFactory,
   RF2IncidentFactory,
@@ -91,7 +91,15 @@ export class RaceReaderService extends EventEmitter {
           sortResults[0],
         );
         await this.carService.saveAll(cars);
-        //guardar solo penalizaciones
+        const penalties: RF2IncidentEntity[] = stream.Penalty
+          ? this.incidentFactory.bulkDTOToModel(
+              stream.Penalty,
+              sessionSaved.sessionId,
+            )
+          : [];
+        if (penalties.length) {
+          await this.incidentService.saveAll(penalties);
+        }
       } catch (error) {
         console.log('error', error);
         console.log(`El archivo ${fileName} tiene un formato incorrecto`);

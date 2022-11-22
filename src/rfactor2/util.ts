@@ -2,7 +2,7 @@ import { RF2DriverDTO } from './dto/RF2Driver';
 import { RF2SessionConfigDTO } from './dto/RF2SessionConfig';
 
 export const castIntFloat = (value: any): any => {
-  if (!isNaN(value) && value.length < 12 ) {
+  if (!isNaN(value) && value.length < 12) {
     value = value % 1 === 0 ? parseInt(value, 10) : parseFloat(value);
   }
   return value;
@@ -88,7 +88,7 @@ export const gapToFirst = (
   if (sessionType === 'race' && FinishTime) {
     const lapsDown = sessionLapCount - Laps;
 
-    if (lapsDown === 0) {
+    if (lapsDown === 0 && leader?.FinishTime) {
       return formatGap(FinishTime, leader.FinishTime, true);
     }
 
@@ -97,7 +97,7 @@ export const gapToFirst = (
     }
   }
 
-  if (sessionType === 'qualifying' && BestLapTime) {
+  if (sessionType === 'qualifying' && BestLapTime && leader?.BestLapTime) {
     return formatGap(BestLapTime, leader.BestLapTime);
   }
   return '';

@@ -23,7 +23,7 @@ export class RF2CarEntity {
   @PrimaryColumn({ name: 'steam_id' })
   SteamID: string;
   @ManyToOne(() => RF2DriverEntity, (driver) => driver.cars, {
-    cascade: true,
+    cascade: false,
   })
   @JoinColumn({ name: 'steam_id' })
   driver?: RF2DriverEntity;
@@ -41,7 +41,7 @@ export class RF2CarEntity {
   @Column({ name: 'car_class' })
   CarClass: string;
   @Column({ name: 'car_number' })
-  CarNumber: number;
+  CarNumber: string;
   @Column({ name: 'team_name' })
   TeamName: string;
   @Column({ name: 'is_player' })

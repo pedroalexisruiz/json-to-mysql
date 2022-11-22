@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RF2LapDTO } from '../dto/RF2Lap';
-import { RF2CarEntity, RF2LapEntity } from '../entities';
+import { RF2CarEntity, RF2DriverEntity, RF2LapEntity } from '../entities';
+import { RF2DriverService } from './rf2driver.service';
 import { RF2LapService } from './rf2lap.service';
 
 @Injectable()
@@ -11,6 +12,7 @@ export class RF2CarService {
     @InjectRepository(RF2CarEntity)
     private carsRepository: Repository<RF2CarEntity>,
     private lapService: RF2LapService,
+    private driverService: RF2DriverService,
   ) {}
 
   findAll(): Promise<RF2CarEntity[]> {
@@ -31,12 +33,17 @@ export class RF2CarService {
 
   async saveAll(cars: RF2CarEntity[]): Promise<RF2CarEntity[]> {
     try {
+      const driversToSave: RF2DriverEntity[] = [];
+      cars.forEach((car) => {
+        driversToSave.push(car.driver);
+      });
+      await this.driverService.bulkSave(driversToSave);
       const carsSaved = await this.carsRepository.save(cars);
       const lapsToSave: RF2LapEntity[] = [];
       cars.forEach((car) => {
         lapsToSave.push(...(car.laps ?? []));
       });
-      this.lapService.saveAll(lapsToSave);
+      await this.lapService.saveAll(lapsToSave);
       return carsSaved;
     } catch (error) {
       console.log(error);

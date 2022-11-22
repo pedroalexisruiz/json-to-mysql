@@ -42,7 +42,7 @@ export class RaceReaderService extends EventEmitter {
     try {
       const watcher = chokidar.watch(folder, {
         persistent: true,
-        ignored: /time-attack/,
+        ignored: /.ini/,
       });
       watcher.on('add', async (filePath) => {
         console.log(

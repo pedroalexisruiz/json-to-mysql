@@ -90,10 +90,7 @@ export class RaceReaderService extends EventEmitter {
           sessionSaved,
           sortResults[0],
         );
-        const carsSaved = await this.carService.saveAll(cars);
-
-        //guardar vueltas con los ids de carro
-
+        await this.carService.saveAll(cars);
         //guardar solo penalizaciones
       } catch (error) {
         console.log('error', error);

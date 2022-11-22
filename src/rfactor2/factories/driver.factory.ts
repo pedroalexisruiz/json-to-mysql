@@ -10,7 +10,7 @@ export class RF2DriverFactory {
     const { Name, SteamID } = driver;
     return {
       Name,
-      SteamID: SteamID + '',
+      SteamID: SteamID.toString(),
     };
   }
 

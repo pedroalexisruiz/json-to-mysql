@@ -72,7 +72,7 @@ export class RF2CarEntity {
   countLaps: number;
   @Column({ name: 'pit_stops' })
   Pitstops: number;
-  @Column({ name: 'finsh_status' })
+  @Column({ name: 'finish_status' })
   FinishStatus: string;
   @Column({ name: 'finish_time' })
   FinishTime?: number;

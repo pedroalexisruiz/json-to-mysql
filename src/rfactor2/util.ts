@@ -42,17 +42,17 @@ export const formatTime = (
   const pad = (num, size) => {
     return ('000' + num).slice(size * -1);
   };
-  const stringTime = parseFloat(timeInSeconds + '').toFixed(3);
+  const stringTime = parseFloat(timeInSeconds + '').toFixed(4);
   const time = parseFloat(stringTime),
     hours = Math.floor(time / 60 / 60),
     minutes = Math.floor(time / 60) % 60,
     seconds = Math.floor(time - minutes * 60),
-    milliseconds = stringTime.slice(-3);
+    milliseconds = stringTime.slice(-4);
 
   return `${addHours ? pad(hours, 2) + ':' : ''}${pad(minutes, 2)}:${pad(
     seconds,
     2,
-  )}.${pad(milliseconds, 3)}`;
+  )}.${pad(milliseconds, 4)}`;
 };
 
 export const formatGap = (
